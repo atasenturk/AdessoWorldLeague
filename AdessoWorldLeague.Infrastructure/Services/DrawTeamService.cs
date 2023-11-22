@@ -18,32 +18,32 @@ namespace AdessoWorldLeague.Infrastructure.Services
         private readonly IGroupRepository _groupRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly ICountriesRepository _countriesRepository;
+        private readonly IDrawRepository _drawRepository;
 
-        public DrawTeamService(IGroupRepository groupRepository, ITeamRepository teamRepository, ICountriesRepository countriesRepository)
+        public DrawTeamService(IGroupRepository groupRepository, ITeamRepository teamRepository, ICountriesRepository countriesRepository, IDrawRepository drawRepository)
         {
             _groupRepository = groupRepository;
             _teamRepository = teamRepository;
             _countriesRepository = countriesRepository;
+            _drawRepository = drawRepository;
         }
 
         public async Task<List<GroupResponse>> DrawTeams(DrawRequest request)
         {
-            if (request.DrawerFirstName == "" || request.DrawerLastName == "")
-            {
-                return new List<GroupResponse>();
-            }
-
-            if (request.GroupCount != 4 && request.GroupCount != 8)
-            {
-                return new List<GroupResponse>();
-            }
-
             var groupNames = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
             var groupsToCreate = groupNames.Take(request.GroupCount);
 
 
             var countriesWithTeams = await _countriesRepository.GetTeams();
             var groupsWithTeams = CreateGroups(countriesWithTeams, request.GroupCount);
+
+            Draw draw = new Draw()
+            {
+                drawerFirstName = request.DrawerFirstName,
+                drawerLastName = request.DrawerLastName,
+                drawDate = DateTime.Now
+            };
+            await _drawRepository.AddAsync(draw);
 
             for (int i = 0; i < groupsToCreate.Count(); i++)
             {
@@ -59,8 +59,9 @@ namespace AdessoWorldLeague.Infrastructure.Services
                         newGroup.Teams.Add(team);
                     }
                 }
+                newGroup.Draw = draw;
+                await _groupRepository.AddAsync(newGroup);
 
-                await _groupRepository.AddAsync(newGroup); // Grubu kaydet
             }
 
             var groupsResponse = groupsWithTeams
@@ -70,9 +71,16 @@ namespace AdessoWorldLeague.Infrastructure.Services
                     Teams = group.Select(teamName => new TeamResponse { Name = teamName }).ToList()
                 })
                 .ToList();
-
+            WriteGroups(groupsResponse);
             return groupsResponse;
 
+        }
+
+        public async Task<List<Group>> GetLastDraw()
+        {
+            var entity = await _drawRepository.LastItem();
+            var groups = await _groupRepository.GetGroupsByDrawId(entity.Id);
+            return groups;
         }
 
         public List<List<string>> CreateGroups(Dictionary<string, List<string>> teams, int groupCount)
@@ -106,6 +114,26 @@ namespace AdessoWorldLeague.Infrastructure.Services
 
             return groups;
         }
+
+        public void WriteGroups(List<GroupResponse> groups)
+        {
+            string filePath = "GroupDrawResults.txt";
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (var group in groups)
+                {
+                    writer.WriteLine($"Group Name: {group.GroupName}");
+
+                    foreach (var team in group.Teams)
+                    {
+                        writer.WriteLine($"- {team.Name}");
+                    }
+                    writer.WriteLine();
+                }
+            }
+        }
+
 
     }
 }

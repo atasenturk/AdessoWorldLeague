@@ -14,5 +14,7 @@ namespace AdessoWorldLeauge.Domain.Entities
         }
         public string Name { get; set; }
         public ICollection<Team> Teams { get; set; }
+        public int ?DrawId { get; set; }
+        public Draw Draw { get; set; }
     }
 }

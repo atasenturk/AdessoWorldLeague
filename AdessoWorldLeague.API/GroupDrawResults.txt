@@ -1,0 +1,48 @@
+Group Name: A
+- Adesso Lahey
+- Adesso Roma
+- Adesso Anvers
+- Adesso Braga
+
+Group Name: B
+- Adesso Rotterdam
+- Adesso Porto
+- Adesso Paris
+- Adesso Venedik
+
+Group Name: C
+- Adesso Ankara
+- Adesso Berlin
+- Adesso Coimbra
+- Adesso Napoli
+
+Group Name: D
+- Adesso Barselona
+- Adesso Milano
+- Adesso Brüksel
+- Adesso Eindhoven
+
+Group Name: E
+- Adesso Granada
+- Adesso Dortmund
+- Adesso Nice
+- Adesso Amsterdam
+
+Group Name: F
+- Adesso Antalya
+- Adesso Brugge
+- Adesso Marsilya
+- Adesso Sevilla
+
+Group Name: G
+- Adesso Madrid
+- Adesso Münih
+- Adesso Lyon
+- Adesso İzmir
+
+Group Name: H
+- Adesso Lisbon
+- Adesso Frankfurt
+- Adesso Gent
+- Adesso İstanbul
+

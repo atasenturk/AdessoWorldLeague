@@ -19,5 +19,20 @@ namespace AdessoWorldLeague.Infrastructure.Repositories
         {
             _context = context;
         }
+
+        public async Task<bool> RemoveAllAsync()
+        {
+            foreach (var group in _context.Groups)
+            {
+                _context.Remove(group);
+            }
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<Group>> GetGroupsByDrawId(int id)
+        {
+            return await _context.Groups.Where(q => q.DrawId == id).ToListAsync();
+        }
     }
 }

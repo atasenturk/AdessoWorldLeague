@@ -34,6 +34,7 @@ builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericReposi
 builder.Services.AddTransient<ICountriesRepository, CountriesRepository>();
 builder.Services.AddTransient<IGroupRepository, GroupRepository>();
 builder.Services.AddTransient<ITeamRepository, TeamRepository>();
+builder.Services.AddTransient<IDrawRepository, DrawRepository>();
 builder.Services.AddTransient<IDrawTeamService, DrawTeamService>();
 builder.Services.AddTransient<DbContext, AdessoDbContext>();
 

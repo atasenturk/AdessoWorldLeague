@@ -25,14 +25,5 @@ namespace AdessoWorldLeague.API.Controllers
             return Ok(groups);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddGroup()
-        {
-            var groups = await _groupRepository.AddAsync(new Group()
-            {
-                Name = "A"
-            });
-            return Ok(groups);
-        }
     }
 }

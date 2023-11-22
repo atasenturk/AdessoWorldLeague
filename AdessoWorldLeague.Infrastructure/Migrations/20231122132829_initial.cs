@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace AdessoWorldLeague.Infrastructure.Migrations
 {
-    public partial class Initialdb : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,16 +23,37 @@ namespace AdessoWorldLeague.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Draws",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    drawerFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    drawerLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    drawDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Draws", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DrawId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Groups_Draws_DrawId",
+                        column: x => x.DrawId,
+                        principalTable: "Draws",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -115,6 +137,13 @@ namespace AdessoWorldLeague.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Groups_DrawId",
+                table: "Groups",
+                column: "DrawId",
+                unique: true,
+                filter: "[DrawId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_CountryId",
                 table: "Teams",
                 column: "CountryId");
@@ -135,6 +164,9 @@ namespace AdessoWorldLeague.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Groups");
+
+            migrationBuilder.DropTable(
+                name: "Draws");
         }
     }
 }

@@ -16,24 +16,18 @@ namespace AdessoWorldLeague.Infrastructure.Data
 
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder
-        //            .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=AdessoDB;Trusted_Connection=True;MultipleActiveResultSets=True");
-        //    }
-        //}
         public DbSet<Team> Teams { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Draw> Draws { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Group>(entity =>
             {
                 entity.ToTable("Groups");
-
+                
                 entity.Property(p => p.Id).UseIdentityColumn();
             });
             modelBuilder.Entity<Country>(entity =>
@@ -45,6 +39,12 @@ namespace AdessoWorldLeague.Infrastructure.Data
             modelBuilder.Entity<Team>(entity =>
             {
                 entity.ToTable("Teams");
+
+                entity.Property(p => p.Id).UseIdentityColumn();
+            });
+            modelBuilder.Entity<Draw>(entity =>
+            {
+                entity.ToTable("Draws");
 
                 entity.Property(p => p.Id).UseIdentityColumn();
             });

@@ -10,6 +10,7 @@ namespace AdessoWorldLeauge.Domain.Interfaces
 {
     public interface IGroupRepository : IGenericRepository<Group>
     {
-
+        Task<bool> RemoveAllAsync();
+        Task<List<Group>> GetGroupsByDrawId(int id);
     }
 }

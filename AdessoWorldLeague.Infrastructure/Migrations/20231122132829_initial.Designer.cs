@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdessoWorldLeague.Infrastructure.Migrations
 {
     [DbContext(typeof(AdessoDbContext))]
-    [Migration("20231122081241_Initial-db")]
-    partial class Initialdb
+    [Migration("20231122132829_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,6 +83,30 @@ namespace AdessoWorldLeague.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AdessoWorldLeauge.Domain.Entities.Draw", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("drawDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("drawerFirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("drawerLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Draws", (string)null);
+                });
+
             modelBuilder.Entity("AdessoWorldLeauge.Domain.Entities.Group", b =>
                 {
                     b.Property<int>("Id")
@@ -91,11 +115,18 @@ namespace AdessoWorldLeague.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("DrawId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DrawId")
+                        .IsUnique()
+                        .HasFilter("[DrawId] IS NOT NULL");
 
                     b.ToTable("Groups", (string)null);
                 });
@@ -321,6 +352,15 @@ namespace AdessoWorldLeague.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AdessoWorldLeauge.Domain.Entities.Group", b =>
+                {
+                    b.HasOne("AdessoWorldLeauge.Domain.Entities.Draw", "Draw")
+                        .WithOne("Group")
+                        .HasForeignKey("AdessoWorldLeauge.Domain.Entities.Group", "DrawId");
+
+                    b.Navigation("Draw");
+                });
+
             modelBuilder.Entity("AdessoWorldLeauge.Domain.Entities.Team", b =>
                 {
                     b.HasOne("AdessoWorldLeauge.Domain.Entities.Country", "Country")
@@ -341,6 +381,12 @@ namespace AdessoWorldLeague.Infrastructure.Migrations
             modelBuilder.Entity("AdessoWorldLeauge.Domain.Entities.Country", b =>
                 {
                     b.Navigation("Teams");
+                });
+
+            modelBuilder.Entity("AdessoWorldLeauge.Domain.Entities.Draw", b =>
+                {
+                    b.Navigation("Group")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AdessoWorldLeauge.Domain.Entities.Group", b =>
