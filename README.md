@@ -19,6 +19,7 @@ As a result, the response returned is in the following format.
 
 
 When the draw is completed, the data is also written to a .txt file:
+
 ![image](https://github.com/atasenturk/AdessoWorldLeague/assets/99036126/8030f949-c6c5-4ab9-987f-e9bf60afa0f2)
 
 All endpoints and what they do:
