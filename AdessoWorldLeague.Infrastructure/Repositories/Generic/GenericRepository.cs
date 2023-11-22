@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdessoWorldLeague.Infrastructure.Data;
 
 namespace AdessoWorldLeague.Infrastructure.Repositories.Generic
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly DbContext _context;
+        private readonly AdessoDbContext _context;
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(AdessoDbContext context)
         {
             _context = context;
         }

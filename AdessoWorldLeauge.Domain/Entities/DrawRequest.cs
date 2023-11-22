@@ -11,10 +11,6 @@ namespace AdessoWorldLeauge.Domain.Entities
         public string DrawerFirstName { get; set; }
         public string DrawerLastName { get; set; }
         public int GroupCount { get; set; }
-
-        // İsteğe bağlı olarak ekleyebileceğiniz diğer alanlar:
-        // public DateTime DrawDate { get; set; }
-        // public string AdditionalNotes { get; set; }
     }
 
 }

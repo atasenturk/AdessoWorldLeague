@@ -1,4 +1,6 @@
 ﻿using AdessoWorldLeague.Infrastructure.Repositories;
+using AdessoWorldLeague.Infrastructure.Services.Interfaces;
+using AdessoWorldLeauge.Domain.Entities;
 using AdessoWorldLeauge.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,21 +11,18 @@ namespace AdessoWorldLeague.API.Controllers
     [ApiController]
     public class TeamDrawController : ControllerBase
     {
-        private readonly IGroupRepository _groupRepository;
-        private readonly ITeamRepository _teamRepository;
-        private readonly ICountriesRepository _countriesRepository;
+        private readonly IDrawTeamService _drawTeamService;
 
-        public TeamDrawController(IGroupRepository groupRepository, ITeamRepository teamRepository, ICountriesRepository countriesRepository)
+        public TeamDrawController(IDrawTeamService drawTeamService)
         {
-            _groupRepository = groupRepository;
-            _teamRepository = teamRepository;
-            _countriesRepository = countriesRepository;
+            _drawTeamService = drawTeamService;
         }
 
-        [HttpPost("teams")]
-        public IActionResult DrawTeams([FromBody] DrawRequest request)
+        [HttpPost("draw")]
+        public async Task<IActionResult> DrawTeams([FromBody] DrawRequest request)
         {
-            // Kurayı çekme işlemi ve cevabın dönülmesi
+            var message = await _drawTeamService.DrawTeams(request);
+            return Ok(message);
         }
     }
 }
