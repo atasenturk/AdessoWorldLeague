@@ -7,6 +7,7 @@ using AdessoWorldLeauge.Domain.Interfaces;
 using AdessoWorldLeauge.Domain.Interfaces.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.CompilerServices;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,10 @@ builder.Services.AddDbContext<AdessoDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AdessoWorldLeagueConnStr")));
 
 builder.Services.AddControllers();
-
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
 builder.Services.AddCors(q => q.AddPolicy("AllowAll", policy => policy
     .AllowAnyHeader()
     .AllowAnyMethod()

@@ -18,5 +18,19 @@ namespace AdessoWorldLeague.Infrastructure.Repositories
         {
             _context = context;
         }
+
+        public async Task<Dictionary<string, List<string>>> GetTeams()
+        {
+            var entities = await _context.Countries
+                .Include(q => q.Teams).ToListAsync();
+            Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
+
+            foreach (var country in entities)
+            {
+                dictionary.Add(country.Name, country.Teams.Select(t => t.Name).ToList());
+            }
+
+            return dictionary;
+        }
     }
 }

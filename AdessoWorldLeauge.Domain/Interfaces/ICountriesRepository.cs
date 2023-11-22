@@ -10,6 +10,6 @@ namespace AdessoWorldLeague.Infrastructure.Repositories
 {
     public interface ICountriesRepository : IGenericRepository<Country>
     {
-        IQueryable<Country> GetTeams();
+        Task<Dictionary<string, List<string>>> GetTeams();
     }
 }

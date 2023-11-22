@@ -10,6 +10,6 @@ namespace AdessoWorldLeauge.Domain.Interfaces
 {
     public interface ITeamRepository : IGenericRepository<Team>
     {
-
+        Task<Team> FindByNameAsync(string name);
     }
 }

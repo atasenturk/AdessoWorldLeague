@@ -19,7 +19,7 @@ namespace AdessoWorldLeague.API.Controllers
         [HttpGet]
         public async Task<ActionResult> GetCountries()
         {
-            var countries = await _countriesRepository.GetAllAsync();
+            var countries = await _countriesRepository.GetTeams();
             return Ok(countries);
         }
     }

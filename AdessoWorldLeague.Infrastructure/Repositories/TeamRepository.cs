@@ -18,5 +18,11 @@ namespace AdessoWorldLeague.Infrastructure.Repositories
         {
             _context = context;
         }
+
+        public async Task<Team> FindByNameAsync(string name)
+        {
+            return await _context.Teams
+                .FirstOrDefaultAsync(t => t.Name == name);
+        }
     }
 }
