@@ -1,48 +1,40 @@
 Group Name: A
-- Adesso Lahey
-- Adesso Roma
-- Adesso Anvers
-- Adesso Braga
+- Adesso Amsterdam
+- Adesso Marsilya
+- Adesso Napoli
+- Adesso Gent
+- Adesso Münih
+- Adesso Madrid
+- Adesso Ankara
+- Adesso Coimbra
 
 Group Name: B
-- Adesso Rotterdam
-- Adesso Porto
-- Adesso Paris
-- Adesso Venedik
+- Adesso Dortmund
+- Adesso Braga
+- Adesso Brugge
+- Adesso İzmir
+- Adesso Sevilla
+- Adesso Eindhoven
+- Adesso Milano
+- Adesso Lyon
 
 Group Name: C
-- Adesso Ankara
+- Adesso Anvers
+- Adesso Antalya
+- Adesso Roma
+- Adesso Porto
+- Adesso Nice
+- Adesso Rotterdam
 - Adesso Berlin
-- Adesso Coimbra
-- Adesso Napoli
+- Adesso Barselona
 
 Group Name: D
-- Adesso Barselona
-- Adesso Milano
 - Adesso Brüksel
-- Adesso Eindhoven
-
-Group Name: E
 - Adesso Granada
-- Adesso Dortmund
-- Adesso Nice
-- Adesso Amsterdam
-
-Group Name: F
-- Adesso Antalya
-- Adesso Brugge
-- Adesso Marsilya
-- Adesso Sevilla
-
-Group Name: G
-- Adesso Madrid
-- Adesso Münih
-- Adesso Lyon
-- Adesso İzmir
-
-Group Name: H
-- Adesso Lisbon
 - Adesso Frankfurt
-- Adesso Gent
+- Adesso Paris
 - Adesso İstanbul
+- Adesso Lahey
+- Adesso Lisbon
+- Adesso Venedik
 

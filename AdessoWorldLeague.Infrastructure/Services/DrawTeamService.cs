@@ -20,6 +20,7 @@ namespace AdessoWorldLeague.Infrastructure.Services
         private readonly ICountriesRepository _countriesRepository;
         private readonly IDrawRepository _drawRepository;
 
+        // Constructor to inject dependencies
         public DrawTeamService(IGroupRepository groupRepository, ITeamRepository teamRepository, ICountriesRepository countriesRepository, IDrawRepository drawRepository)
         {
             _groupRepository = groupRepository;
@@ -28,27 +29,33 @@ namespace AdessoWorldLeague.Infrastructure.Services
             _drawRepository = drawRepository;
         }
 
+        // Method to draw teams into groups
         public async Task<List<GroupResponse>> DrawTeams(DrawRequest request)
         {
+            // List of group names
             var groupNames = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H" };
+            // Select a subset of group names based on the requested group count
             var groupsToCreate = groupNames.Take(request.GroupCount);
 
-
+            // Get a dictionary of countries with their teams
             var countriesWithTeams = await _countriesRepository.GetTeams();
+            // Create groups with teams
             var groupsWithTeams = CreateGroups(countriesWithTeams, request.GroupCount);
 
+            // Create a new draw entity
             Draw draw = new Draw()
             {
                 drawerFirstName = request.DrawerFirstName,
                 drawerLastName = request.DrawerLastName,
                 drawDate = DateTime.Now
             };
+            // Add the draw to the repository
             await _drawRepository.AddAsync(draw);
 
+            // Iterate through the groups to create and populate them
             for (int i = 0; i < groupsToCreate.Count(); i++)
             {
                 var newGroup = new Group { Name = groupsToCreate.ElementAt(i), Teams = new List<Team>() };
-
                 var teamNamesInGroup = groupsWithTeams[i];
 
                 foreach (var teamName in teamNamesInGroup)
@@ -61,9 +68,9 @@ namespace AdessoWorldLeague.Infrastructure.Services
                 }
                 newGroup.Draw = draw;
                 await _groupRepository.AddAsync(newGroup);
-
             }
 
+            // Create a response containing the groups and teams
             var groupsResponse = groupsWithTeams
                 .Select((group, index) => new GroupResponse
                 {
@@ -71,11 +78,12 @@ namespace AdessoWorldLeague.Infrastructure.Services
                     Teams = group.Select(teamName => new TeamResponse { Name = teamName }).ToList()
                 })
                 .ToList();
+            // Write the group draw results to a text file
             WriteGroups(groupsResponse);
             return groupsResponse;
-
         }
 
+        // Method to get the last draw
         public async Task<List<Group>> GetLastDraw()
         {
             var entity = await _drawRepository.LastItem();
@@ -83,6 +91,7 @@ namespace AdessoWorldLeague.Infrastructure.Services
             return groups;
         }
 
+        // Method to create groups with teams
         public List<List<string>> CreateGroups(Dictionary<string, List<string>> teams, int groupCount)
         {
             var groups = new List<List<string>>();
@@ -115,6 +124,7 @@ namespace AdessoWorldLeague.Infrastructure.Services
             return groups;
         }
 
+        // Method to write group draw results to a text file
         public void WriteGroups(List<GroupResponse> groups)
         {
             string filePath = "GroupDrawResults.txt";
@@ -133,7 +143,5 @@ namespace AdessoWorldLeague.Infrastructure.Services
                 }
             }
         }
-
-
     }
 }
