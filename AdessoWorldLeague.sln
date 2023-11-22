@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoWorldLeauge.Domain", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoWorldLeague.Infrastructure", "AdessoWorldLeague.Infrastructure\AdessoWorldLeague.Infrastructure.csproj", "{BDB24370-BCE5-4FBA-BCA6-13164F88D694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoWorldLeague.Services", "AdessoWorldLeague.Services\AdessoWorldLeague.Services.csproj", "{5C5B1589-5D9F-43C5-BB80-A4870B92BBF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoWorldLeague.Tests", "AdessoWorldLeague.Tests\AdessoWorldLeague.Tests.csproj", "{120E63C1-9677-456F-BBC0-A6B126B3790E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{BDB24370-BCE5-4FBA-BCA6-13164F88D694}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDB24370-BCE5-4FBA-BCA6-13164F88D694}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDB24370-BCE5-4FBA-BCA6-13164F88D694}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C5B1589-5D9F-43C5-BB80-A4870B92BBF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C5B1589-5D9F-43C5-BB80-A4870B92BBF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C5B1589-5D9F-43C5-BB80-A4870B92BBF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C5B1589-5D9F-43C5-BB80-A4870B92BBF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{120E63C1-9677-456F-BBC0-A6B126B3790E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120E63C1-9677-456F-BBC0-A6B126B3790E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120E63C1-9677-456F-BBC0-A6B126B3790E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120E63C1-9677-456F-BBC0-A6B126B3790E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
